@@ -3,6 +3,7 @@ import sys
 prime_one = 2957
 prime_two = 3023
 n_public_key = prime_one * prime_two
+e_public_key = 65537
 
 phi = (prime_one - 1) * (prime_two - 1)
 # This is the Euler Phi function applied to n_public_key.
