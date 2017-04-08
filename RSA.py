@@ -3,7 +3,6 @@ import sys
 prime_one = 2957
 prime_two = 3023
 n_public_key = prime_one * prime_two
-e_public_key = 35
 
 phi = (prime_one - 1) * (prime_two - 1)
 # This is the Euler Phi function applied to n_public_key.
@@ -28,12 +27,12 @@ def get_input():
     print("Would you like to encrypt or decrypt a message?")
     user_input = input("Use comands 'Encrypt', 'Decrypt', or 'Exit' to continue. \n").lower()
     if user_input == "encrypt":
-        number_to_encrypt = input("Please enter the number you wish to encrypt: ")
+        number_to_encrypt = input("Please enter the number you wish to encrypt: \n")
         encrypted_number = encrypt(int(number_to_encrypt))
         print(encrypted_number)
         get_input()
     elif user_input == "decrypt":
-        number_to_decrypt = input("Please enter the number you wish to decrypt: ")
+        number_to_decrypt = input("Please enter the number you wish to decrypt: \n")
         decrypted_number = decrypt(int(number_to_decrypt))
         print(decrypted_number)
         get_input()
