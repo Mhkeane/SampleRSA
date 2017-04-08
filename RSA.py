@@ -17,11 +17,11 @@ for i in range(n_public_key):
 
 
 def encrypt(number):
-    return (number ** e_public_key) % n_public_key
+    return pow(number, e_public_key, n_public_key)
 
 
 def decrypt(number):
-    return (number ** private_key) % n_public_key
+    return pow(number, private_key, n_public_key)
 
 
 def get_input():
