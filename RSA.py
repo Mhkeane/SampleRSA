@@ -1,29 +1,52 @@
-import functools
+import sys
 
-n = 8939011
-e = 35
-p = 2957
-q = 3023
-phi = (p - 1) * (q - 1)
-d = 510459
+prime_one = 2957
+prime_two = 3023
+n_public_key = prime_one * prime_two
+e_public_key = 35
 
+phi = (prime_one - 1) * (prime_two - 1)
+# This is the Euler Phi function applied to n_public_key.
+# As n_public_key is exactly the product of two primes, it is equal to the product of each of the primes minus one.
+#private_key = 510459
 
-# for i in range(n):
-#	if (i*e)%phi == 1:
-#		print(i)
+for i in range(n_public_key):
+    if (i * e_public_key) % phi == 1:
+        private_key = i
+        break
+
 
 def encrypt(number):
-    return (number ** e) % n
+    return (number ** e_public_key) % n_public_key
 
 
 def decrypt(number):
-    return (number ** d) % n
+    return (number ** private_key) % n_public_key
 
 
-print(encrypt(1234567))
-print(decrypt(7654321))
+def get_input():
+    print("Would you like to encrypt or decrypt a message?")
+    user_input = input("Use comands 'Encrypt', 'Decrypt', or 'Exit' to continue. \n").lower()
+    if user_input == "encrypt":
+        number_to_encrypt = input("Please enter the number you wish to encrypt: ")
+        encrypted_number = encrypt(int(number_to_encrypt))
+        print(encrypted_number)
+        get_input()
+    elif user_input == "decrypt":
+        number_to_decrypt = input("Please enter the number you wish to decrypt: ")
+        decrypted_number = decrypt(int(number_to_decrypt))
+        print(decrypted_number)
+        get_input()
+    elif user_input == "exit":
+        sys.exit()
+    else:
+        print("Sorry, your input was not recognised, please try again")
+        get_input()
 
 
-def factors(n):
-    return set(functools.reduce(list.__add__,
-                                ([i, n // i] for i in range(1, int(n ** 0.5) + 1) if n % i == 0)))
+def main():
+    print("WARNING: THIS IS NOT SECURE AND SHOULD NOT BE USED AS SERIOUS ENCRYPTION.")
+    get_input()
+
+
+main()
