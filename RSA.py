@@ -1,19 +1,22 @@
 import sys
 
-prime_one = 2957
-prime_two = 3023
-n_public_key = prime_one * prime_two
-e_public_key = 65537
+def init():
+    global n_public_key, e_public_key, private_key
+    prime_one = 2957
+    prime_two = 3023
+    n_public_key = prime_one * prime_two
+    e_public_key = 65537
 
-phi = (prime_one - 1) * (prime_two - 1)
-# This is the Euler Phi function applied to n_public_key.
-# As n_public_key is exactly the product of two primes, it is equal to the product of each of the primes minus one.
-#private_key = 510459
+    phi = (prime_one - 1) * (prime_two - 1)
+    # This is the Euler Phi function applied to n_public_key.
+    # As n_public_key is exactly the product of two primes, it is equal to the product of each of the primes minus one.
+    #private_key = 510459
 
-for i in range(n_public_key):
-    if (i * e_public_key) % phi == 1:
-        private_key = i
-        break
+    for i in range(n_public_key):
+        if (i * e_public_key) % phi == 1:
+            private_key = i
+            break
+    return n_public_key, e_public_key, private_key
 
 
 def encrypt(number):
@@ -26,7 +29,7 @@ def decrypt(number):
 
 def get_input():
     print("Would you like to encrypt or decrypt a message?")
-    user_input = input("Use comands 'Encrypt', 'Decrypt', or 'Exit' to continue. \n").lower()
+    user_input = input("Use commands 'Encrypt', 'Decrypt', or 'Exit' to continue. \n").lower()
     if user_input == "encrypt":
         number_to_encrypt = input("Please enter the number you wish to encrypt: \n")
         encrypted_number = encrypt(int(number_to_encrypt))
@@ -45,6 +48,7 @@ def get_input():
 
 
 def main():
+    init()
     print("WARNING: THIS IS NOT SECURE AND SHOULD NOT BE USED AS SERIOUS ENCRYPTION.")
     get_input()
 
